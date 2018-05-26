@@ -6,12 +6,12 @@ import java.util.Observer;
 public abstract class AbstractBumper extends Observable implements Bumper, Observer {
     private int hitsToUpgrade;
     private int score;
-    private boolean upgrade;
+    private boolean upgraded;
 
     public AbstractBumper(int hits, int score) {
         this.hitsToUpgrade = hits;
         this.score = score;
-        this.upgrade = false;
+        this.upgraded = false;
     }
 
     public void setHitsToUpgrade(int hits) {
@@ -22,8 +22,8 @@ public abstract class AbstractBumper extends Observable implements Bumper, Obser
         this.score = score;
     }
 
-    public void setUpgrade(boolean upgrade) {
-        this.upgrade = upgrade;
+    public void setUpgraded(boolean upgraded) {
+        this.upgraded = upgraded;
     }
 
     @Override
@@ -45,7 +45,7 @@ public abstract class AbstractBumper extends Observable implements Bumper, Obser
 
     @Override
     public boolean isUpgraded() {
-        return this.upgrade;
+        return this.upgraded;
     }
 
     @Override

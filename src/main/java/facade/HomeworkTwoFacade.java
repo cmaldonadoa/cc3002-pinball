@@ -73,10 +73,7 @@ public class HomeworkTwoFacade {
      * @return a new table determined by the parameters
      */
     public Table newPlayableTableWithNoTargets(String name, int numberOfBumpers, double prob) {
-        List<Bumper> bumpers = new ArrayList<>();
-        List<Target> targets = new ArrayList<>();
-        setBumpers(numberOfBumpers, prob, bumpers);
-        return new GameTable(name, 0, bumpers, targets);
+        return game.createTable(name, numberOfBumpers,prob, 0, 0);
     }
 
     /**
@@ -90,38 +87,7 @@ public class HomeworkTwoFacade {
      * @return a new table determined by the parameters
      */
     public Table newFullPlayableTable(String name, int numberOfBumpers, double prob, int numberOfSpotTargets, int numberOfDropTargets) {
-        List<Bumper> bumpers = new ArrayList<>();
-        List<Target> targets = new ArrayList<>();
-        setBumpers(numberOfBumpers, prob, bumpers);
-        int dropTargets = numberOfDropTargets;
-
-        while (numberOfSpotTargets > 0) {
-            targets.add(new SpotTarget());
-            numberOfSpotTargets--;
-        }
-
-        while (numberOfDropTargets > 0) {
-            targets.add(new DropTarget());
-            numberOfDropTargets--;
-        }
-
-        return new GameTable(name, dropTargets, bumpers, targets);
-    }
-
-    /**
-     * Fills the bumpers list with bumpers according to a probability.
-     *
-     * @param numberOfBumpers the number of bumpers in the table
-     * @param prob            the probability a {@link logic.gameelements.bumper.PopBumper}
-     * @param bumpers         the list of bumpers to be filled
-     */
-    private void setBumpers(int numberOfBumpers, double prob, List<Bumper> bumpers) {
-        while (numberOfBumpers > 0) {
-            double chance = new Random().nextDouble();
-            if (chance <= prob) { bumpers.add(new PopBumper()); }
-            else { bumpers.add(new KickerBumper());}
-            numberOfBumpers--;
-        }
+        return game.createTable(name, numberOfBumpers, prob, numberOfSpotTargets, numberOfDropTargets);
     }
 
     /**
@@ -195,18 +161,12 @@ public class HomeworkTwoFacade {
      *
      * @return the new number of available balls
      */
-    public int dropBall() {
-        int currentBalls = game.getBalls();
-        game.setBalls(currentBalls - 1);
-        return game.getBalls();
-    }
+    public int dropBall() { return game.dropBall(); }
 
     /**
      * Checks whether the game is over or not. A game is over when the number of available balls are 0.
      *
      * @return true if the game is over, false otherwise
      */
-    public boolean gameOver() {
-        return game.getBalls() == 0;
-    }
+    public boolean gameOver() { return game.gameOver(); }
 }

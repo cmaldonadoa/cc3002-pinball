@@ -4,13 +4,16 @@ import logic.bonus.Bonus;
 import logic.bonus.DropTargetBonus;
 import logic.bonus.ExtraBallBonus;
 import logic.bonus.JackPotBonus;
+import logic.gameelements.bumper.Bumper;
+import logic.gameelements.bumper.KickerBumper;
+import logic.gameelements.bumper.PopBumper;
+import logic.gameelements.target.DropTarget;
+import logic.gameelements.target.SpotTarget;
+import logic.gameelements.target.Target;
 import logic.table.GameTable;
 import logic.table.Table;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 /**
  * Game logic controller class.
@@ -68,6 +71,40 @@ public class Game implements Observer{
         this.score = score;
     }
 
+    public Table createTable(String name, int numberOfBumpers, double prob, int numberOfSpotTargets, int numberOfDropTargets) {
+        List<Bumper> bumpers = new ArrayList<>();
+        List<Target> targets = new ArrayList<>();
+
+        while (numberOfBumpers > 0) {
+            double chance = new Random().nextDouble();
+            if (chance <= prob) { bumpers.add(new PopBumper()); }
+            else { bumpers.add(new KickerBumper());}
+            numberOfBumpers--;
+        }
+        int dropTargets = numberOfDropTargets;
+
+        while (numberOfSpotTargets > 0) {
+            targets.add(new SpotTarget());
+            numberOfSpotTargets--;
+        }
+
+        while (numberOfDropTargets > 0) {
+            targets.add(new DropTarget());
+            numberOfDropTargets--;
+        }
+
+        return new GameTable(name, dropTargets, bumpers, targets);
+    }
+
+    public int dropBall() {
+        this.balls -= 1;
+        return this.balls;
+    }
+
+    public boolean gameOver() {
+        return this.balls == 0;
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         if (arg.equals("triggerExtraBallBonus")) {
@@ -76,6 +113,14 @@ public class Game implements Observer{
 
         if (arg.equals("triggerJackPotBonus")) {
             this.getJackPotBonus().trigger(this);
+        }
+
+        if (arg.equals("triggerDropTargetBonus")) {
+            this.getDropTargetBonus().trigger(this);
+        }
+
+        if (arg.equals("droppedDropTarget")) {
+            this.score += 100;
         }
     }
 }

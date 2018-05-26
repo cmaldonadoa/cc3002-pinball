@@ -9,6 +9,7 @@ public class SpotTarget extends AbstractTarget {
     public int hit() {
         notifyObservers("triggerJackPotBonus");
         deactivate();
+        notifyObservers("droppedSpotTarget");
         return getScore();
     }
 

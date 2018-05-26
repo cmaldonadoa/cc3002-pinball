@@ -6,7 +6,7 @@ import logic.gameelements.target.Target;
 import java.util.List;
 import java.util.Observable;
 
-public class GameTable implements Table {
+public class GameTable extends Observable implements Table {
     private String tableName;
     private int numberOfDropTargets;
     private int droppedDropTargets;
@@ -72,6 +72,7 @@ public class GameTable implements Table {
 
         if (arg.equals("droppedDropTarget")) {
             this.droppedDropTargets += 1;
+            if (this.droppedDropTargets == this.numberOfDropTargets) { notifyObservers("triggerDropTargetBonus"); }
         }
     }
 
