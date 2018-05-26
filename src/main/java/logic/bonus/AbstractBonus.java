@@ -5,7 +5,7 @@ import controller.Game;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class AbstractBonus implements Bonus, Observer {
+public abstract class AbstractBonus implements Bonus {
     private int triggered;
 
     public AbstractBonus() {
@@ -14,11 +14,6 @@ public abstract class AbstractBonus implements Bonus, Observer {
 
     public void triggerOnce() {
         this.triggered += 1;
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        trigger((Game) arg);
     }
 
     @Override

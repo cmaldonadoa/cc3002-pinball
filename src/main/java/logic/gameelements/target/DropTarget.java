@@ -1,18 +1,23 @@
 package logic.gameelements.target;
 
-import controller.Game;
 import java.util.Random;
 
 public class DropTarget extends AbstractTarget{
-    public DropTarget(Game game) {
-        super(100, game);
+    public DropTarget() {
+        super(100);
     }
 
     @Override
     public int hit() {
         double chance = new Random().nextDouble();
-        if (chance <= 0.30) { notifyObservers(getGame()); } // ExtraBallBonus
+        if (chance <= 0.30) { notifyObservers("triggerExtraBallBonus"); }
         deactivate();
+        notifyObservers("droppedDropTarget");
         return getScore();
+    }
+
+    @Override
+    public void getTargetType() {
+        notifyObservers("DropTarget");
     }
 }

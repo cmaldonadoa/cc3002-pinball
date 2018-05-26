@@ -1,39 +1,38 @@
 package logic.table;
 
 import logic.gameelements.bumper.Bumper;
-import logic.gameelements.target.DropTarget;
 import logic.gameelements.target.Target;
 
 import java.util.List;
+import java.util.Observable;
 
 public class GameTable implements Table {
-    private String name;
-    private int dropTargets;
-    private int droppedTargets;
+    private String tableName;
+    private int numberOfDropTargets;
+    private int droppedDropTargets;
     private List<Bumper> bumpers;
     private List<Target> targets;
 
-    public GameTable(String name, int dropTargets, int droppedTargets, List<Bumper> bumpers, List<Target> targets) {
-        this.name = name;
-        this.dropTargets = dropTargets;
-        this.droppedTargets = droppedTargets;
+    public GameTable(String name, int numberOfDropTargets, List<Bumper> bumpers, List<Target> targets) {
+        this.tableName = name;
+        this.numberOfDropTargets = numberOfDropTargets;
+        this.droppedDropTargets = 0;
         this.bumpers = bumpers;
         this.targets = targets;
     }
 
     @Override
     public String getTableName() {
-        return this.name;
+        return this.tableName;
     }
 
     @Override
     public int getNumberOfDropTargets() {
-        return this.dropTargets;
+        return this.numberOfDropTargets;
     }
+
     @Override
-    public int getCurrentlyDroppedDropTargets() {
-        return this.droppedTargets;
-    }
+    public int getCurrentlyDroppedDropTargets() { return this.droppedDropTargets; }
 
     @Override
     public List<Bumper> getBumpers() {
@@ -47,8 +46,8 @@ public class GameTable implements Table {
 
     @Override
     public void resetDropTargets() {
-        for (Target target : this.targets) {
-            if (target instanceof DropTarget) { target.reset();}
+        for (Target target : targets) {
+            target.getTargetType();
         }
     }
 
@@ -61,7 +60,19 @@ public class GameTable implements Table {
 
     @Override
     public boolean isPlayableTable(){
-        return true;
+        return !(this.bumpers.isEmpty() && this.targets.isEmpty() && this.tableName.equals(""));
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg.equals("DropTarget")) {
+                Target target = (Target) o;
+                target.reset();
+        }
+
+        if (arg.equals("droppedDropTarget")) {
+            this.droppedDropTargets += 1;
+        }
     }
 
 }

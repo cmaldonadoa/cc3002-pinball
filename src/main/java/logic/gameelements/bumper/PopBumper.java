@@ -12,7 +12,7 @@ public class PopBumper extends AbstractBumper{
         setUpgrade(true);
         setScore(300);
         double chance = new Random().nextDouble();
-        if (chance <= 0.10) { notifyObservers("PopBumper"); } // ExtraBallBonus
+        if (chance <= 0.10) { notifyObservers("triggerExtraBallBonus"); }
     }
 
     @Override

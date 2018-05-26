@@ -10,6 +10,7 @@ public class JackPotBonus extends AbstractBonus {
     @Override
     public void trigger(Game game) {
         triggerOnce();
-        /* Add 100k points */
+        int currentScore = game.getScore();
+        game.setScore(currentScore + 100000);
     }
 }

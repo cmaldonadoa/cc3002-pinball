@@ -1,8 +1,9 @@
 package logic.gameelements.bumper;
 
 import java.util.Observable;
+import java.util.Observer;
 
-public abstract class AbstractBumper extends Observable implements Bumper {
+public abstract class AbstractBumper extends Observable implements Bumper, Observer {
     private int hitsToUpgrade;
     private int score;
     private boolean upgrade;
@@ -52,4 +53,9 @@ public abstract class AbstractBumper extends Observable implements Bumper {
 
     @Override
     public abstract void downgrade();
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg.equals("upgradeBumpers")) { this.upgrade(); }
+    }
 }

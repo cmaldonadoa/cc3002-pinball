@@ -12,7 +12,7 @@ public class KickerBumper extends AbstractBumper {
         setUpgrade(true);
         setScore(1000);
         double chance = new Random().nextDouble();
-        if (chance <= 0.10) { notifyObservers("KickerBumper"); } // ExtraBallBonus
+        if (chance <= 0.10) { notifyObservers("triggerExtraBallBonus"); }
     }
 
     @Override

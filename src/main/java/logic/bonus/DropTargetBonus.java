@@ -10,7 +10,8 @@ public class DropTargetBonus extends AbstractBonus {
     @Override
     public void trigger(Game game) {
         triggerOnce();
-        /* Add 1M points */
-        /* Upgrade all bumpers */
+        int currentScore = game.getScore();
+        game.setScore(currentScore + 1000000);
+        game.getTable().upgradeAllBumpers();
     }
 }

@@ -1,26 +1,21 @@
 package logic.gameelements.target;
 
-import controller.Game;
 import java.util.Observable;
 
 public abstract class AbstractTarget extends Observable implements Target {
     private int score;
     private boolean active;
-    private Game game;
 
-    public AbstractTarget(int score, Game game) {
+    public AbstractTarget(int score) {
         this.score = score;
         this.active = true;
-        this.game = game;
-    }
-
-    public Game getGame() {
-        return this.game;
     }
 
     public void deactivate() {
         this.active = false;
     }
+
+    public abstract void getTargetType();
 
     @Override
     public abstract int hit();

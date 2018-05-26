@@ -12,6 +12,7 @@ public class ExtraBallBonus extends AbstractBonus {
     @Override
     public void trigger(Game game) {
         triggerOnce();
-        /* Add extra ball to game */
+        int currentBalls = game.getBalls();
+        game.setBalls(currentBalls + 1);
     }
 }

@@ -21,4 +21,9 @@ public interface Target extends Hittable {
      * Resets the state of a target making it active again.
      */
     void reset();
+
+    /**
+     * Notify what kind of target it is to the observers.
+     */
+    void getTargetType();
 }
