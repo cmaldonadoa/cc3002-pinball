@@ -38,6 +38,8 @@ cmake-build-debug/
 /out/
 target/
 out/
+*/out/*
+*/target/*
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
