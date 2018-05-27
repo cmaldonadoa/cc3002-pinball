@@ -38,7 +38,7 @@ cmake-build-debug/
 /out/
 target/
 out/
-*/.idea/*
+.idea/**
 */out/*
 */target/*
 
