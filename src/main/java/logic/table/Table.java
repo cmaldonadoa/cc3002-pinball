@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Observer;
 
 /**
- * Interface that represents the basics of a table to be played on.
+ * Interface that represents the basics of a table to be played on. A able observes {@link Target}s.
  *
  * @author Juan-Pablo Silva
+ * @see GameTable
  */
 public interface Table extends Observer{
     /**
@@ -63,4 +64,11 @@ public interface Table extends Observer{
      * @return true if the table is playable, false otherwise
      */
     boolean isPlayableTable();
+
+    /**
+     * Adds current object an observer.
+     *
+     * @param o the observer to be added.
+     */
+    void attachObserver(Observer o);
 }

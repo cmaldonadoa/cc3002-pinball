@@ -23,7 +23,7 @@ public interface Target extends Hittable {
     void reset();
 
     /**
-     * Notify what kind of target it is to the observers.
+     * Notify what kind of target it is to its observers.
      */
-    void getTargetType();
+    void notifyType();
 }

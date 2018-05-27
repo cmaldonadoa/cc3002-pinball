@@ -2,7 +2,15 @@ package logic.bonus;
 
 import controller.Game;
 
+/**
+ * The class of a jackpot bonus, which gives 100K points.
+ *
+ * @author Cristobal Maldonado
+ */
 public class JackPotBonus extends AbstractBonus {
+    /**
+     * The constructor of a jackpot bonus.
+     */
     public JackPotBonus() {
         super();
     }

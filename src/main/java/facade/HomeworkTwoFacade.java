@@ -3,17 +3,10 @@ package facade;
 import controller.Game;
 import logic.bonus.Bonus;
 import logic.gameelements.bumper.Bumper;
-import logic.gameelements.bumper.KickerBumper;
-import logic.gameelements.bumper.PopBumper;
-import logic.gameelements.target.DropTarget;
-import logic.gameelements.target.SpotTarget;
 import logic.gameelements.target.Target;
-import logic.table.GameTable;
 import logic.table.Table;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Facade class to expose the logic of the game to a GUI in the upcoming homework.

@@ -2,7 +2,15 @@ package logic.gameelements.target;
 
 import java.util.Random;
 
+/**
+ * The class of a drop target.
+ *
+ * @author Cristobal Maldonado
+ */
 public class DropTarget extends AbstractTarget{
+    /**
+     * The constructor of a drop target.
+     */
     public DropTarget() {
         super(100);
     }
@@ -12,12 +20,12 @@ public class DropTarget extends AbstractTarget{
         double chance = new Random().nextDouble();
         if (chance <= 0.30) { notifyObservers("triggerExtraBallBonus"); }
         deactivate();
-        notifyObservers("droppedDropTarget");
+        notifyObservers("hitDropTarget");
         return getScore();
     }
 
     @Override
-    public void getTargetType() {
+    public void notifyType() {
         notifyObservers("DropTarget");
     }
 }

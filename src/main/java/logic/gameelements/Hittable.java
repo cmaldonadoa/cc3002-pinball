@@ -1,7 +1,9 @@
 package logic.gameelements;
 
+import java.util.Observer;
+
 /**
- * Interface that represents a hittable object.
+ * Interface that represents a hittable object. These objects will be observed.
  *
  * <p>Objects that are game elements should implement this interface.</p>
  *
@@ -24,4 +26,11 @@ public interface Hittable {
      * @return the current score of the object when hit
      */
     int getScore();
+
+    /**
+     * Adds current object an observer.
+     *
+     * @param o the observer to be added.
+     */
+    void attachObserver(Observer o);
 }
