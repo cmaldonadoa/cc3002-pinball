@@ -66,7 +66,7 @@ public class HomeworkTwoFacade {
      * @return a new table determined by the parameters
      */
     public Table newPlayableTableWithNoTargets(String name, int numberOfBumpers, double prob) {
-        return game.createTable(name, numberOfBumpers,prob, 0, 0);
+        return game.createTable(name, numberOfBumpers, prob, 0, 0);
     }
 
     /**

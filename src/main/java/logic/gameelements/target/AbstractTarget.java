@@ -2,6 +2,7 @@ package logic.gameelements.target;
 
 import controller.Game;
 import logic.table.Table;
+import visitor.Visitor;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -29,14 +30,11 @@ public abstract class AbstractTarget extends Observable implements Target {
     }
 
     /**
-     * Deactivates this target.
+     * Makes the target inactive.
      */
-    public void deactivate() {
-        this.active = false;
-    }
+    public void deactivate() { this.active = false; }
 
-    @Override
-    public abstract void notifyType();
+    public abstract int hitSeed(long seed);
 
     @Override
     public abstract int hit();
@@ -47,15 +45,17 @@ public abstract class AbstractTarget extends Observable implements Target {
     }
 
     @Override
-    public boolean isActive() {
-        return this.active;
-    }
+    public boolean isActive() { return this.active == true; }
 
     @Override
     public void reset() {
         this.active = true;
+        clearChanged();
     }
 
     @Override
     public void attachObserver(Observer o) { this.addObserver(o); }
+
+    @Override
+    public abstract void accept(Visitor visitor);
 }

@@ -3,6 +3,8 @@ package logic.table;
 import controller.Game;
 import logic.gameelements.bumper.Bumper;
 import logic.gameelements.target.Target;
+import visitor.Visitor;
+import visitor.resetDropTargetsVisitor;
 
 import java.util.List;
 import java.util.Observable;
@@ -19,15 +21,15 @@ public class GameTable extends Observable implements Table {
     private int droppedDropTargets;
     private List<Bumper> bumpers;
     private List<Target> targets;
+    private long seed;
 
     /**
      * The constructor of a game table. It adds itself to the observers of the bumpers contained in the table.
      *
      * @param name                the name of the table
-     * @param numberOfDropTargets the number of drop targets that will be available
+     * @param numberOfDropTargets the number of drop targets in the table
      * @param bumpers             the list of bumpers in the table
      * @param targets             the list of targets in the table
-     *
      * @see Target
      * @see Bumper
      */
@@ -37,6 +39,7 @@ public class GameTable extends Observable implements Table {
         this.droppedDropTargets = 0;
         this.bumpers = bumpers;
         this.targets = targets;
+        this.seed = -1;
         for(Target target : targets) { target.attachObserver(this); }
     }
 
@@ -58,8 +61,11 @@ public class GameTable extends Observable implements Table {
     @Override
     public void resetDropTargets() {
         for (Target target : targets) {
-            target.notifyType();
+            resetDropTargetsVisitor visitor = new resetDropTargetsVisitor();
+            target.accept(visitor);
         }
+        this.droppedDropTargets = 0;
+        clearChanged();
     }
 
     @Override
@@ -77,14 +83,11 @@ public class GameTable extends Observable implements Table {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg.equals("DropTarget")) {
-                Target target = (Target) o;
-                target.reset();
-        }
-
         if (arg.equals("hitDropTarget")) {
             this.droppedDropTargets += 1;
-            if (this.droppedDropTargets == this.numberOfDropTargets) { notifyObservers("triggerDropTargetBonus"); }
+            if (this.droppedDropTargets == this.numberOfDropTargets) {
+                setChanged();
+                notifyObservers("triggerDropTargetBonus"); }
         }
     }
 

@@ -1,6 +1,7 @@
 package logic.gameelements.target;
 
 import logic.gameelements.Hittable;
+import visitor.Visitor;
 
 /**
  * Interface that represents operations related to a target behavior.
@@ -23,7 +24,18 @@ public interface Target extends Hittable {
     void reset();
 
     /**
-     * Notify what kind of target it is to its observers.
+     * Accepts a visitor to do something.
+     *
+     * @param visitor a visitor to be accepted
      */
-    void notifyType();
+    void accept(Visitor visitor);
+
+    /**
+     * Defines that an object have been hit.
+     *
+     * @param seed a seed to handle the chance of triggering a bonus
+     * @return the score the player obtained hitting the object
+     * @see logic.bonus.Bonus
+     */
+    int hitSeed(long seed);
 }

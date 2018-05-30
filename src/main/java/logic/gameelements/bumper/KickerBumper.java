@@ -16,11 +16,16 @@ public class KickerBumper extends AbstractBumper {
     }
 
     @Override
-    public void upgrade() {
+    public void upgradeSeed(long seed) {
         setUpgraded(true);
         setScore(1000);
-        double chance = new Random().nextDouble();
-        if (chance <= 0.10) { notifyObservers("triggerExtraBallBonus"); }
+        double chance;
+        if (seed != 0) { chance = new Random().nextDouble(); }
+        else { chance = 0; }
+        if (chance <= 0.10) {
+            setChanged();
+            notifyObservers("triggerExtraBallBonus");
+        }
     }
 
     @Override
@@ -28,5 +33,6 @@ public class KickerBumper extends AbstractBumper {
         setUpgraded(false);
         setScore(500);
         setHitsToUpgrade(5);
+        clearChanged();
     }
 }

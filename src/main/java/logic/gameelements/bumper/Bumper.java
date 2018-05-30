@@ -33,4 +33,11 @@ public interface Bumper extends Hittable {
      * Downgrades a bumper making {@link #isUpgraded()} return false.
      */
     void downgrade();
+
+    /**
+     * Upgrades a bumper making {@link #isUpgraded()} return true.
+     *
+     * @param seed a seed to handle the chance of triggering {@link logic.bonus.ExtraBallBonus}
+     */
+    void upgradeSeed(long seed);
 }

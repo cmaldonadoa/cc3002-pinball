@@ -1,5 +1,7 @@
 package logic.gameelements.target;
 
+import visitor.Visitor;
+
 /**
  * The class of a spot target.
  *
@@ -14,15 +16,23 @@ public class SpotTarget extends AbstractTarget {
     }
 
     @Override
-    public int hit() {
+    public int hitSeed(long seed) {
+        setChanged();
         notifyObservers("triggerJackPotBonus");
         deactivate();
+        clearChanged();
+        setChanged();
         notifyObservers("hitSpotTarget");
         return getScore();
     }
 
     @Override
-    public void notifyType() {
-        notifyObservers("SpotTarget");
+    public int hit() {
+        return hitSeed(-1);
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitSpotTarget(this);
     }
 }

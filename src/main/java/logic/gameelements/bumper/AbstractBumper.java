@@ -58,6 +58,9 @@ public abstract class AbstractBumper extends Observable implements Bumper {
     }
 
     @Override
+    public abstract void upgradeSeed(long seed);
+
+    @Override
     public int hit(){
         this.hitsToUpgrade -= 1;
         if (this.hitsToUpgrade == 0) { this.upgrade(); }
@@ -80,7 +83,11 @@ public abstract class AbstractBumper extends Observable implements Bumper {
     }
 
     @Override
-    public abstract void upgrade();
+    public void upgrade() {
+        if (!this.isUpgraded()) {
+            this.upgradeSeed(-1);
+        }
+    }
 
     @Override
     public abstract void downgrade();
