@@ -1,5 +1,6 @@
-package logic.gameelements.bumper;
+package logictest.gameelementstest.bumpertest;
 
+import logic.gameelements.bumper.PopBumper;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -22,6 +23,7 @@ public class PopBumperTest {
         popBumper.hit();
         assertEquals(2, popBumper.remainingHitsToUpgrade());
         popBumper.hit();
+        assertEquals(1, popBumper.remainingHitsToUpgrade());
         popBumper.hit();
         assertEquals(0, popBumper.remainingHitsToUpgrade());
     }
@@ -34,7 +36,7 @@ public class PopBumperTest {
     }
 
     @Test
-    public void testHitScoreUpgraded() {
+    public void testHitScoreWhenUpgraded() {
         popBumper.upgrade();
         int score = popBumper.hit();
         assertEquals(300, score);
@@ -44,7 +46,11 @@ public class PopBumperTest {
     public void testHitUpgrade() {
         assertFalse(popBumper.isUpgraded());
         popBumper.hit();
+        assertFalse(popBumper.isUpgraded());
         popBumper.hit();
+        assertFalse(popBumper.isUpgraded());
+        popBumper.hit();
+        assertTrue(popBumper.isUpgraded());
         popBumper.hit();
         assertTrue(popBumper.isUpgraded());
     }
@@ -62,7 +68,14 @@ public class PopBumperTest {
     }
 
     @Test
-    public void testHitScoreDowngraded() {
+    public void testDowngrade() {
+        popBumper.upgrade();
+        popBumper.downgrade();
+        assertFalse(popBumper.isUpgraded());
+    }
+
+    @Test
+    public void testHitScoreAfterDowngrade() {
         popBumper.upgrade();
         popBumper.downgrade();
         int score = popBumper.hit();

@@ -12,7 +12,7 @@ import java.util.Observer;
  * @author Juan-Pablo Silva
  * @see GameTable
  */
-public interface Table extends Observer{
+public interface Table {
     /**
      * Gets the table name.
      *

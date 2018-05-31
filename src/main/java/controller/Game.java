@@ -12,6 +12,7 @@ import logic.gameelements.target.SpotTarget;
 import logic.gameelements.target.Target;
 import logic.table.GameTable;
 import logic.table.Table;
+import visitor.Visitor;
 
 import java.util.*;
 
@@ -21,7 +22,9 @@ import java.util.*;
  * @author Juan-Pablo Silva
  */
 public class Game implements Observer{
-    private List<Bonus> bonuses = new ArrayList<>();
+    private DropTargetBonus dropTargetBonus;
+    private ExtraBallBonus extraBallBonus;
+    private JackPotBonus jackPotBonus;
     private Table table;
     private int balls;
     private int score;
@@ -30,9 +33,9 @@ public class Game implements Observer{
      * The constructor of a game.
      */
     public Game() {
-        bonuses.add(new DropTargetBonus());
-        bonuses.add(new ExtraBallBonus());
-        bonuses.add(new JackPotBonus());
+        this.dropTargetBonus = new DropTargetBonus();
+        this.extraBallBonus = new ExtraBallBonus();
+        this.jackPotBonus = new JackPotBonus();
         this.balls = 3;
         this.score = 0;
         this.table = new GameTable("",0, new ArrayList<>(), new ArrayList<>());
@@ -67,40 +70,35 @@ public class Game implements Observer{
     }
 
     /**
-     * Gets the instance of {@link logic.bonus.DropTargetBonus} currently in the game.
+     * Gets the instance of {@link DropTargetBonus} currently in the game.
      *
      * @return the DropTargetBonus instance
      */
     public Bonus getDropTargetBonus() {
-        return bonuses.get(0);
+        return this.dropTargetBonus;
     }
 
     /**
-     * Gets the instance of {@link logic.bonus.ExtraBallBonus} currently in the game.
+     * Gets the instance of {@link ExtraBallBonus} currently in the game.
      *
      * @return the ExtraBallBonus instance
      */
-    public Bonus getExtraBallBonus() {
-        return bonuses.get(1);
-    }
+    public Bonus getExtraBallBonus() { return this.extraBallBonus; }
 
     /**
-     * Gets the instance of {@link logic.bonus.JackPotBonus} currently in the game.
+     * Gets the instance of {@link JackPotBonus} currently in the game.
      *
      * @return the JackPotBonus instance
      */
     public Bonus getJackPotBonus() {
-        return bonuses.get(2);
+        return this.jackPotBonus;
     }
 
     /**
-     * Sets a table to be played. The game adds itself to the observers of this table and the bumpers and targets of
-     * the table.
+     * Sets a table to be played. The game adds itself to the observers of this {@link Table}, and the {@link Bumper}s
+     * and {@link Target}s on it.
      *
      * @param table the table to be set
-     * @see Table
-     * @see Bumper
-     * @see Target
      */
     public void setTable(Table table) {
         this.table = table;
@@ -134,9 +132,9 @@ public class Game implements Observer{
      *
      * @param name                the name of the table
      * @param numberOfBumpers     the number of bumpers in the table
-     * @param prob                the probability a {@link logic.gameelements.bumper.PopBumper}
-     * @param numberOfSpotTargets the number of {@link logic.gameelements.target.SpotTarget}
-     * @param numberOfDropTargets the number of {@link logic.gameelements.target.DropTarget}
+     * @param prob                the probability a {@link PopBumper}
+     * @param numberOfSpotTargets the number of {@link SpotTarget}
+     * @param numberOfDropTargets the number of {@link DropTarget}
      * @return a new table determined by the parameters
      */
     public Table createTable(String name, int numberOfBumpers, double prob, int numberOfSpotTargets, int numberOfDropTargets) {
@@ -186,21 +184,7 @@ public class Game implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg.equals("triggerExtraBallBonus")) {
-            this.getExtraBallBonus().trigger(this);
-        }
-
-        if (arg.equals("triggerJackPotBonus")) {
-            this.getJackPotBonus().trigger(this);
-        }
-
-        if (arg.equals("triggerDropTargetBonus")) {
-            this.getDropTargetBonus().trigger(this);
-        }
-
-        if (arg.equals("hitDropTarget") || arg.equals("hitSpotTarget")) {
-            Target target = (Target) o;
-            this.score += target.getScore();
-        }
+        Visitor visitor = (Visitor) arg;
+        visitor.visitGame(this);
     }
 }

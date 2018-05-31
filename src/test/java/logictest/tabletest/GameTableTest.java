@@ -1,4 +1,4 @@
-package logic.table;
+package logictest.tabletest;
 
 import logic.gameelements.bumper.Bumper;
 import logic.gameelements.bumper.KickerBumper;
@@ -6,6 +6,7 @@ import logic.gameelements.bumper.PopBumper;
 import logic.gameelements.target.DropTarget;
 import logic.gameelements.target.SpotTarget;
 import logic.gameelements.target.Target;
+import logic.table.GameTable;
 import org.junit.*;
 
 import java.util.ArrayList;
@@ -59,19 +60,17 @@ public class GameTableTest {
     }
 
     @Test
-    public void testCurrentlyDroppedDropTargets() {
-        for (Target target : table.getTargets()) {
-            target.hit();
-        }
-        assertEquals(table.getNumberOfDropTargets(), table.getCurrentlyDroppedDropTargets());
-    }
-
-    @Test
     public void testResetDropTargets() {
         for (Target target : table.getTargets()) {
             target.hit();
         }
         table.resetDropTargets();
         assertEquals(0, table.getCurrentlyDroppedDropTargets());
+
+        int inactiveTargets = 0;
+        for (Target target : table.getTargets()) {
+            if (!target.isActive()) { inactiveTargets += 1; }
+        }
+        assertEquals(3, inactiveTargets);
     }
 }

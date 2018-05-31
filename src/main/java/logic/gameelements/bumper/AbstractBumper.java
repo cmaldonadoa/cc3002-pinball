@@ -49,7 +49,7 @@ public abstract class AbstractBumper extends Observable implements Bumper {
     }
 
     /**
-     * Sets the upgrade status of the bumper (ture if its upgraded, false otherwise).
+     * Sets the upgrade status of the bumper (true if its upgraded, false otherwise).
      *
      * @param upgraded the upgrade status of the bumper
      */
@@ -61,11 +61,7 @@ public abstract class AbstractBumper extends Observable implements Bumper {
     public abstract void upgradeSeed(long seed);
 
     @Override
-    public int hit(){
-        this.hitsToUpgrade -= 1;
-        if (this.hitsToUpgrade == 0) { this.upgrade(); }
-        return this.score;
-    }
+    public abstract int hit();
 
     @Override
     public int getScore() {

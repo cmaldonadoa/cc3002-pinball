@@ -1,5 +1,9 @@
 package logic.gameelements.bumper;
 
+import visitor.hitPopBumperVisitor;
+import visitor.hitUpgradedPopBumperVisitor;
+import visitor.triggerExtraBallBonusVisitor;
+
 import java.util.Random;
 
 /**
@@ -16,15 +20,32 @@ public class PopBumper extends AbstractBumper{
     }
 
     @Override
+    public int hit(){
+        int hitsToUpgrade = remainingHitsToUpgrade();
+        setHitsToUpgrade(hitsToUpgrade - 1);
+        if (remainingHitsToUpgrade() == 0) { this.upgrade(); }
+        if (isUpgraded()) {
+            setChanged();
+            notifyObservers(new hitUpgradedPopBumperVisitor());
+        }
+        else {
+            setChanged();
+            notifyObservers(new hitPopBumperVisitor());
+        }
+        return getScore();
+    }
+
+    @Override
     public void upgradeSeed(long seed) {
         setUpgraded(true);
         setScore(300);
         double chance;
         if (seed != 0) { chance = new Random().nextDouble(); }
         else { chance = 0; }
+
         if (chance <= 0.10) {
             setChanged();
-            notifyObservers("triggerExtraBallBonus");
+            notifyObservers(new triggerExtraBallBonusVisitor());
         }
     }
 
@@ -33,6 +54,5 @@ public class PopBumper extends AbstractBumper{
         setUpgraded(false);
         setScore(100);
         setHitsToUpgrade(3);
-        clearChanged();
     }
 }

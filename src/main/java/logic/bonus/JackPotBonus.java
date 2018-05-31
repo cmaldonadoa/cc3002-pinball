@@ -3,7 +3,7 @@ package logic.bonus;
 import controller.Game;
 
 /**
- * The class of a jackpot bonus, which gives 100K points.
+ * The class of a jackpot bonus, which gives 100 000 points.
  *
  * @author Cristobal Maldonado
  */

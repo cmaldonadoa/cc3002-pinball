@@ -21,7 +21,7 @@ public abstract class AbstractBonus implements Bonus {
     }
 
     /**
-     * Adds one to the triggered times counter.
+     * Adds one to the times triggered counter.
      */
     public void triggerOnce() {
         this.triggered += 1;

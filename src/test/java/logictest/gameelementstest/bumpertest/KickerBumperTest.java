@@ -1,5 +1,6 @@
-package logic.gameelements.bumper;
+package logictest.gameelementstest.bumpertest;
 
+import logic.gameelements.bumper.KickerBumper;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -22,6 +23,7 @@ public class KickerBumperTest {
         kickerBumper.hit();
         assertEquals(4, kickerBumper.remainingHitsToUpgrade());
         kickerBumper.hit();
+        assertEquals(3, kickerBumper.remainingHitsToUpgrade());
         kickerBumper.hit();
         assertEquals(2, kickerBumper.remainingHitsToUpgrade());
     }
@@ -34,7 +36,7 @@ public class KickerBumperTest {
     }
 
     @Test
-    public void testHitScoreUpgraded() {
+    public void testHitScoreWhenUpgraded() {
         kickerBumper.upgrade();
         int score = kickerBumper.hit();
         assertEquals(1000, score);
@@ -44,9 +46,15 @@ public class KickerBumperTest {
     public void testHitUpgrade() {
         assertFalse(kickerBumper.isUpgraded());
         kickerBumper.hit();
+        assertFalse(kickerBumper.isUpgraded());
         kickerBumper.hit();
+        assertFalse(kickerBumper.isUpgraded());
         kickerBumper.hit();
+        assertFalse(kickerBumper.isUpgraded());
         kickerBumper.hit();
+        assertFalse(kickerBumper.isUpgraded());
+        kickerBumper.hit();
+        assertTrue(kickerBumper.isUpgraded());
         kickerBumper.hit();
         assertTrue(kickerBumper.isUpgraded());
     }
@@ -68,7 +76,14 @@ public class KickerBumperTest {
     }
 
     @Test
-    public void testHitScoreDowngraded() {
+    public void testDowngrade() {
+        kickerBumper.upgrade();
+        kickerBumper.downgrade();
+        assertFalse(kickerBumper.isUpgraded());
+    }
+
+    @Test
+    public void testHitScoreAfterDowngrade() {
         kickerBumper.upgrade();
         kickerBumper.downgrade();
         int score = kickerBumper.hit();

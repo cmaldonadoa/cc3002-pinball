@@ -58,26 +58,26 @@ public class HomeworkTwoFacade {
     }
 
     /**
-     * Creates a new table with the given parameters with no targets.
+     * Creates a new tabletest with the given parameters with no targets.
      *
      * @param name            the name of the table
      * @param numberOfBumpers the number of bumpers in the table
      * @param prob            the probability a {@link logic.gameelements.bumper.PopBumper}
-     * @return a new table determined by the parameters
+     * @return a new tabletest determined by the parameters
      */
     public Table newPlayableTableWithNoTargets(String name, int numberOfBumpers, double prob) {
         return game.createTable(name, numberOfBumpers, prob, 0, 0);
     }
 
     /**
-     * Creates a new table with the given parameters.
+     * Creates a new tabletest with the given parameters.
      *
      * @param name                the name of the table
      * @param numberOfBumpers     the number of bumpers in the table
      * @param prob                the probability a {@link logic.gameelements.bumper.PopBumper}
      * @param numberOfSpotTargets the number of {@link logic.gameelements.target.SpotTarget}
      * @param numberOfDropTargets the number of {@link logic.gameelements.target.DropTarget}
-     * @return a new table determined by the parameters
+     * @return a new tabletest determined by the parameters
      */
     public Table newFullPlayableTable(String name, int numberOfBumpers, double prob, int numberOfSpotTargets, int numberOfDropTargets) {
         return game.createTable(name, numberOfBumpers, prob, numberOfSpotTargets, numberOfDropTargets);

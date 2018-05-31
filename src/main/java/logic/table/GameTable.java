@@ -1,9 +1,7 @@
 package logic.table;
 
-import controller.Game;
 import logic.gameelements.bumper.Bumper;
 import logic.gameelements.target.Target;
-import visitor.Visitor;
 import visitor.resetDropTargetsVisitor;
 
 import java.util.List;
@@ -11,7 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * Game table class which contains game elements. A game table is observed by {@link Game}.
+ * Game table class which contains game {@link Bumper}s and {@link Target}s. A game table is observed by {@link controller.Game}.
  *
  * @author Cristobal Maldonado
  */
@@ -21,10 +19,9 @@ public class GameTable extends Observable implements Table {
     private int droppedDropTargets;
     private List<Bumper> bumpers;
     private List<Target> targets;
-    private long seed;
 
     /**
-     * The constructor of a game table. It adds itself to the observers of the bumpers contained in the table.
+     * The constructor of a game table.
      *
      * @param name                the name of the table
      * @param numberOfDropTargets the number of drop targets in the table
@@ -39,8 +36,15 @@ public class GameTable extends Observable implements Table {
         this.droppedDropTargets = 0;
         this.bumpers = bumpers;
         this.targets = targets;
-        this.seed = -1;
-        for(Target target : targets) { target.attachObserver(this); }
+    }
+
+    /**
+     * Sets the number of dropped {@link logic.gameelements.target.DropTarget} of the table to the given number.
+     *
+     * @param droppedDropTargets the number of dropped drop targets to be set
+     */
+    public void setDroppedDropTargets(int droppedDropTargets) {
+        this.droppedDropTargets = droppedDropTargets;
     }
 
     @Override
@@ -65,7 +69,6 @@ public class GameTable extends Observable implements Table {
             target.accept(visitor);
         }
         this.droppedDropTargets = 0;
-        clearChanged();
     }
 
     @Override
@@ -79,16 +82,7 @@ public class GameTable extends Observable implements Table {
     public boolean isPlayableTable(){ return !(this.bumpers.isEmpty() && this.targets.isEmpty() && this.tableName.equals("")); }
 
     @Override
-    public void attachObserver(Observer o) { this.addObserver(o); }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (arg.equals("hitDropTarget")) {
-            this.droppedDropTargets += 1;
-            if (this.droppedDropTargets == this.numberOfDropTargets) {
-                setChanged();
-                notifyObservers("triggerDropTargetBonus"); }
-        }
+    public void attachObserver(Observer o) {
+        this.addObserver(o);
     }
-
 }

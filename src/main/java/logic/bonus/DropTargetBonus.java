@@ -1,10 +1,10 @@
 package logic.bonus;
 
 import controller.Game;
-import logic.gameelements.bumper.Bumper;
 
 /**
- * The class of a drop target bonus, which gives 1M points and upgrades all {@link Bumper}s on the table.
+ * The class of a drop target bonus, which gives 1 000 000 points and upgrades all {@link logic.gameelements.bumper.Bumper}
+ * on the table.
  *
  * @author Cristobal Maldonado
  */

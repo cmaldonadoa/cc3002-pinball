@@ -1,5 +1,6 @@
-package controller;
+package controllertest;
 
+import controller.Game;
 import logic.gameelements.bumper.Bumper;
 import logic.gameelements.bumper.KickerBumper;
 import logic.gameelements.bumper.PopBumper;
@@ -73,6 +74,8 @@ public class GameTest {
         assertEquals(3, playableGame.getBalls());
         playableGame.dropBall();
         assertEquals(2, playableGame.getBalls());
+        playableGame.dropBall();
+        assertEquals(1, playableGame.getBalls());
     }
 
     @Test
@@ -83,15 +86,52 @@ public class GameTest {
     }
 
     @Test
-    public void testDropTargetBonus() {
-        for (Target target : playableGame.getTable().getTargets()) {
-            target.hit();
+    public void testScoreUpdateOnHittingBumpers() {
+        assertEquals(0, playableGame.getScore());
+        for (Bumper bumper : playableGame.getTable().getBumpers()) {
+            bumper.hit();
         }
-        assertEquals(1, playableGame.getDropTargetBonus().timesTriggered());
+        assertEquals(1800, playableGame.getScore());
     }
 
     @Test
-    public void testJackPotBonus() {
+    public void testScoreUpdateOnHittingUpgradedBumpers() {
+        assertEquals(0, playableGame.getScore());
+        for (Bumper bumper : playableGame.getTable().getBumpers()) {
+            bumper.upgrade();
+            bumper.hit();
+        }
+        assertEquals(3900, playableGame.getScore());
+    }
+
+    @Test
+    public void testScoreUpdateOnHittingTargets() {
+        assertEquals(0, playableGame.getScore());
+        for (Target target : playableGame.getTable().getTargets()) {
+            target.hitSeed(1);
+        }
+        assertEquals(1000300, playableGame.getScore());
+        for (Target target : playableGame.getTable().getTargets()) {
+            assertFalse(target.isActive());
+            target.hit();
+        }
+        assertEquals(1000300, playableGame.getScore());
+    }
+
+    @Test
+    public void testTriggerDropTargetBonus() {
+        for (Target target : playableGame.getTable().getTargets()) {
+            target.hit();
+        }
+        assertEquals(playableGame.getTable().getNumberOfDropTargets(), playableGame.getTable().getCurrentlyDroppedDropTargets());
+        assertEquals(1, playableGame.getDropTargetBonus().timesTriggered());
+        for (Bumper bumper : playableGame.getTable().getBumpers()) {
+            assertTrue(bumper.isUpgraded());
+        }
+    }
+
+    @Test
+    public void testTriggerJackPotBonus() {
         for (Target target : playableGame.getTable().getTargets()) {
             target.hit();
         }
@@ -99,7 +139,7 @@ public class GameTest {
     }
 
     @Test
-    public void testExtraBallBonus() {
+    public void testTriggerExtraBallBonus() {
         List<Target> newTargets = new ArrayList<>();
         newTargets.add(new DropTarget());
         newTargets.add(new DropTarget());
