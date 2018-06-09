@@ -21,9 +21,7 @@ public class PopBumper extends AbstractBumper{
 
     @Override
     public int hit(){
-        int hitsToUpgrade = remainingHitsToUpgrade();
-        setHitsToUpgrade(hitsToUpgrade - 1);
-        if (remainingHitsToUpgrade() == 0) { this.upgrade(); }
+        decreaseHitsToUpgrade();
         if (isUpgraded()) {
             setChanged();
             notifyObservers(new hitUpgradedPopBumperVisitor());

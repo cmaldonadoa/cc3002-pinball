@@ -28,7 +28,7 @@ public interface Hittable {
     int getScore();
 
     /**
-     * Adds current object an observer.
+     * Adds to the current object an observer.
      *
      * @param o the observer to be added.
      */

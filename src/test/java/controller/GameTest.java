@@ -1,6 +1,5 @@
-package controllertest;
+package controller;
 
-import controller.Game;
 import logic.gameelements.bumper.Bumper;
 import logic.gameelements.bumper.KickerBumper;
 import logic.gameelements.bumper.PopBumper;

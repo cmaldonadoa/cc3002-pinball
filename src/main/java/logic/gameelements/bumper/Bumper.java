@@ -35,9 +35,10 @@ public interface Bumper extends Hittable {
     void downgrade();
 
     /**
-     * Upgrades a bumper making {@link #isUpgraded()} return true. Used for test only.
+     * Updates the score that the bumper will give when hit.
      *
-     * @param seed a seed to handle the chance of triggering {@link logic.bonus.ExtraBallBonus} when upgraded
+     * @param seed a seed to handle the chance of triggering {@link logic.bonus.ExtraBallBonus} when upgraded.
+     *             If the seed is 0 it will trigger the extra ball bonus, otherwise it will be random.
      */
     void upgradeSeed(long seed);
 }

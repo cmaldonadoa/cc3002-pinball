@@ -57,10 +57,26 @@ public abstract class AbstractBumper extends Observable implements Bumper {
         this.upgraded = upgraded;
     }
 
+    /**
+     * Decreases by one the remaining hits to upgrade, and upgrades the bumper if its necessary.
+     */
+    public void decreaseHitsToUpgrade() {
+        if (!this.isUpgraded()) {
+            this.hitsToUpgrade -= 1;
+            if (remainingHitsToUpgrade() == 0) {
+                this.upgrade();
+            }
+        }
+    }
+
     @Override
     public abstract void upgradeSeed(long seed);
 
     @Override
+    /*
+    Decreases the hits needed to upgrade, and upgrades the bumper if needed. Notifies the current {@link controller.Game}
+    instance that a bumper has been hit, and if this bumper is upgraded or not.
+    */
     public abstract int hit();
 
     @Override

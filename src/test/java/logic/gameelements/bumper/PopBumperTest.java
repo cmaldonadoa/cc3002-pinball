@@ -1,6 +1,5 @@
-package logictest.gameelementstest.bumpertest;
+package logic.gameelements.bumper;
 
-import logic.gameelements.bumper.PopBumper;
 import org.junit.*;
 import static org.junit.Assert.*;
 

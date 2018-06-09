@@ -21,9 +21,7 @@ public class KickerBumper extends AbstractBumper {
 
     @Override
     public int hit(){
-        int hitsToUpgrade = remainingHitsToUpgrade();
-        setHitsToUpgrade(hitsToUpgrade - 1);
-        if (remainingHitsToUpgrade() == 0) { this.upgrade(); }
+        decreaseHitsToUpgrade();
         if (isUpgraded()) {
             setChanged();
             notifyObservers(new hitUpgradedKickerBumperVisitor());

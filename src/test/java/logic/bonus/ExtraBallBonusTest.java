@@ -1,7 +1,6 @@
-package logictest.bonustest;
+package logic.bonus;
 
 import controller.Game;
-import logic.bonus.ExtraBallBonus;
 import org.junit.*;
 import static org.junit.Assert.*;
 

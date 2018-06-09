@@ -66,7 +66,7 @@ public interface Table {
     boolean isPlayableTable();
 
     /**
-     * Adds current object an observer.
+     * Adds to the current object an observer.
      *
      * @param o the observer to be added.
      */
