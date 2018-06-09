@@ -5,11 +5,15 @@ import logic.gameelements.target.DropTarget;
 import logic.gameelements.target.SpotTarget;
 
 /**
- * A visitor interface to implement the visitor design pattern.
+ * A visitor class to implement the visitor design pattern.
  *
  * @author Cristobal Maldonado
  * @see hitDropTargetVisitor
  * @see hitSpotTargetVisitor
+ * @see hitKickerBumperVisitor
+ * @see hitPopBumperVisitor
+ * @see hitUpgradedKickerBumperVisitor
+ * @see hitUpgradedPopBumperVisitor
  * @see resetDropTargetsVisitor
  * @see triggerJackPotBonusVisitor
  * @see triggerDropTargetBonusVisitor
