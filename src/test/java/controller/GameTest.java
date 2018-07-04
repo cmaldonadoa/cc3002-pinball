@@ -118,6 +118,22 @@ public class GameTest {
     }
 
     @Test
+    public void testResetDropTargets() {
+        Table table = playableGame.getTable();
+        for (Target target : table.getTargets()) {
+            target.hit();
+        }
+        table.resetDropTargets();
+        assertEquals(0, table.getCurrentlyDroppedDropTargets());
+
+        int inactiveTargets = 0;
+        for (Target target : table.getTargets()) {
+            if (!target.isActive()) { inactiveTargets += 1; }
+        }
+        assertEquals(3, inactiveTargets);
+    }
+
+    @Test
     public void testTriggerDropTargetBonus() {
         for (Target target : playableGame.getTable().getTargets()) {
             target.hit();

@@ -7,7 +7,7 @@ import controller.Game;
  *
  * @author Cristobal Maldonado
  */
-public class triggerJackPotBonusVisitor extends Visitor {
+public class triggerJackPotBonusVisitor implements Visitor {
     @Override
     public void visitGame(Game game) {
         game.getJackPotBonus().trigger(game);

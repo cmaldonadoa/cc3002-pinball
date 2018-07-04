@@ -7,7 +7,7 @@ import controller.Game;
  *
  * @author Cristobal Maldonado
  */
-public class triggerDropTargetBonusVisitor extends Visitor{
+public class triggerDropTargetBonusVisitor implements Visitor{
     @Override
     public void visitGame(Game game) {
         game.getDropTargetBonus().trigger(game);

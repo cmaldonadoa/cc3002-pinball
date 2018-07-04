@@ -8,7 +8,7 @@ import logic.gameelements.target.SpotTarget;
  *
  * @author Cristobal Maldonado
  */
-public class hitSpotTargetVisitor extends Visitor {
+public class hitSpotTargetVisitor implements Visitor {
     @Override
     public void visitGame(Game game) {
         int currentScore = game.getScore();

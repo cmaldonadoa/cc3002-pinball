@@ -10,7 +10,7 @@ import logic.table.GameTable;
  *
  * @author Cristobal Maldonado
  */
-public class hitDropTargetVisitor extends Visitor {
+public class hitDropTargetVisitor implements Visitor {
     @Override
     public void visitGame(Game game) {
         int currentScore = game.getScore();

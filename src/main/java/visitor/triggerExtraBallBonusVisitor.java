@@ -7,7 +7,7 @@ import controller.Game;
  *
  * @author Cristobal Maldonado
  */
-public class triggerExtraBallBonusVisitor extends Visitor {
+public class triggerExtraBallBonusVisitor implements Visitor {
 
     @Override
     public void visitGame(Game game) {

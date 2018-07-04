@@ -64,10 +64,8 @@ public class GameTable extends Observable implements Table {
 
     @Override
     public void resetDropTargets() {
-        for (Target target : targets) {
-            resetDropTargetsVisitor visitor = new resetDropTargetsVisitor();
-            target.accept(visitor);
-        }
+        setChanged();
+        notifyObservers(new resetDropTargetsVisitor());
         this.droppedDropTargets = 0;
     }
 

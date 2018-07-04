@@ -8,7 +8,7 @@ import logic.gameelements.bumper.KickerBumper;
  *
  * @author Cristobal Maldonado
  */
-public class hitKickerBumperVisitor extends Visitor {
+public class hitKickerBumperVisitor implements Visitor {
     @Override
     public void visitGame(Game game) {
         int currentScore = game.getScore();

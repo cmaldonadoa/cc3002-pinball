@@ -57,19 +57,4 @@ public class GameTableTest {
             assertTrue(bumper.isUpgraded());
         }
     }
-
-    @Test
-    public void testResetDropTargets() {
-        for (Target target : table.getTargets()) {
-            target.hit();
-        }
-        table.resetDropTargets();
-        assertEquals(0, table.getCurrentlyDroppedDropTargets());
-
-        int inactiveTargets = 0;
-        for (Target target : table.getTargets()) {
-            if (!target.isActive()) { inactiveTargets += 1; }
-        }
-        assertEquals(3, inactiveTargets);
-    }
 }

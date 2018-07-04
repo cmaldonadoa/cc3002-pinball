@@ -8,7 +8,7 @@ import logic.gameelements.bumper.PopBumper;
  *
  * @author Cristobal Maldonado
  */
-public class hitUpgradedPopBumperVisitor extends Visitor {
+public class hitUpgradedPopBumperVisitor implements Visitor {
     @Override
     public void visitGame(Game game) {
         int currentScore = game.getScore();
