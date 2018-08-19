@@ -22,6 +22,12 @@ public class HomeworkTwoFacade {
     private Game game;
 
     /**
+     * The constructor of the facade.
+     */
+    public HomeworkTwoFacade() {
+        game = new Game();
+    }
+    /**
      * Gets whether the current table is playable or not.
      *
      * @return true if the current table is playable, false otherwise

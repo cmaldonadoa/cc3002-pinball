@@ -35,6 +35,13 @@ public interface Bumper extends Hittable {
     void downgrade();
 
     /**
+     * Gets whether a target is a {@link KickerBumper} or not.
+     *
+     * @return true if the target is a DropTarget, false otherwise.
+     */
+    boolean isKickerBumper();
+
+    /**
      * Updates the score that the bumper will give when hit.
      *
      * @param seed a seed to handle the chance of triggering {@link logic.bonus.ExtraBallBonus} when upgraded.

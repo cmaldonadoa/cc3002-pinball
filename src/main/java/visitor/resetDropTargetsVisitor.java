@@ -2,27 +2,23 @@ package visitor;
 
 import controller.Game;
 import logic.gameelements.target.DropTarget;
-import logic.gameelements.target.SpotTarget;
 import logic.gameelements.target.Target;
-import logic.table.Table;
+import logic.table.GameTable;
 
 /**
- * Resets a {@link DropTarget}.
+ * Resets all {@link DropTarget}s in the current table.
  *
  * @author Cristobal Maldonado
  */
 public class resetDropTargetsVisitor implements Visitor {
     @Override
     public void visitGame(Game game) {
-        Table table = game.getTable();
+        GameTable table = (GameTable) game.getTable();
         for (Target target : table.getTargets()) {
-            target.accept(this);
+            if (!target.isActive() && target.isDropTarget()) {
+                target.reset();
+                table.setDroppedDropTargets(table.getCurrentlyDroppedDropTargets() - 1);
+            }
         }
     }
-
-    public void visitDropTarget(DropTarget dropTarget) {
-        dropTarget.reset();
-    }
-
-    public void visitSpotTarget(SpotTarget spotTarget) {}
 }

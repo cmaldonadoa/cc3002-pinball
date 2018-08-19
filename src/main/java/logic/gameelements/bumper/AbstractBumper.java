@@ -107,4 +107,7 @@ public abstract class AbstractBumper extends Observable implements Bumper {
     @Override
     public void attachObserver(Observer o) { this.addObserver(o); }
 
+    @Override
+    public abstract boolean isKickerBumper();
+
 }

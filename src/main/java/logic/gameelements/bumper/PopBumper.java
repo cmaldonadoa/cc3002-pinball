@@ -53,4 +53,9 @@ public class PopBumper extends AbstractBumper{
         setScore(100);
         setHitsToUpgrade(3);
     }
+
+    @Override
+    public boolean isKickerBumper() {
+        return false;
+    }
 }

@@ -53,4 +53,9 @@ public class KickerBumper extends AbstractBumper {
         setScore(500);
         setHitsToUpgrade(5);
     }
+
+    @Override
+    public boolean isKickerBumper() {
+        return true;
+    }
 }

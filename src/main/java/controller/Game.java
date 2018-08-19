@@ -169,7 +169,9 @@ public class Game implements Observer{
      * @return the new number of available balls
      */
     public int dropBall() {
-        this.balls -= 1;
+        if (this.balls > 0) {
+            this.balls -= 1;
+        }
         return this.balls;
     }
 

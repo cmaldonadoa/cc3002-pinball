@@ -11,5 +11,6 @@ public class triggerDropTargetBonusVisitor implements Visitor{
     @Override
     public void visitGame(Game game) {
         game.getDropTargetBonus().trigger(game);
+        game.getTable().resetDropTargets();
     }
 }
